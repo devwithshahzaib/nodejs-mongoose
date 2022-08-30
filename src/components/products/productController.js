@@ -6,8 +6,8 @@ const getProducts = async (req, res) => {
   try {
     //trying to fetch data from database
 
-    const products = await productModel.find();
-    console.log("products", products);
+    const products = await productModel.find(); //get all products from db
+    // console.log("products", products);
 
     //if products find from db successfully
 
@@ -16,7 +16,7 @@ const getProducts = async (req, res) => {
       message: "products fetched successfully",
       data: products,
     };
-    res.json(response);
+    res.json(response);//sending reponse to frontend
   } catch (err) {
     //if products doesn't found
 
@@ -41,17 +41,18 @@ const createProduct = async (req, res) => {
   }
 
   //data from user/frontend load here
-  const newProduct = {
+  // const {title, price, description} = req.body;  // alternate way destructuring 
+  const newProduct = { //
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
     cratedAt: new Date(),
   };
 
-  const product = new productModel(newProduct);
+  const product = new productModel(newProduct); //
 
   try {
-    let productToBeAdded = await product.save();
+    let productToBeAdded = await product.save(); // product saved in database 
     let response = {
       status: 201,
       message: "Product Created Successfully",
